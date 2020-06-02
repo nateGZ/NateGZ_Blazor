@@ -1,0 +1,61 @@
+﻿@page "/propertygen"
+
+<h1>Property Generator</h1>
+<EditForm Model="model">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="template">Template $$Variable for variable to be replaced</label>                
+                <textarea class="form-control col-12" row="10" col="10" id="template" @bind="@model.template" placeholder="public string $$Variable" />
+            </div>
+
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="prop">Properties</label>
+                <textarea class="form-control col-12" row="10" col="10" id="prop" @bind="@model.property" placeholder="AssessmentType,
+Attempt,
+AttemptOn,
+AutoSubmitOnClick,
+BackToScoreSummary,
+Below,
+Continue,
+CorrectAnswer,
+DisableCompletedFeedback" />
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <label for="gen">Output</label>
+                <textarea class="form-control col-12" row="10" col="10" id="gen" @bind="@model.output" />
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+
+<button class="btn btn-primary" disabled=@isProcessing @onclick="Generate">Generate</button>
+
+@code {
+    protected class EditModel
+    {
+        public string property { get; set; }
+        public string template { get; set; }
+        public string output { get; set; }
+    }
+
+    private EditModel model = new EditModel();
+    private int currentCount = 0;
+    private bool isProcessing = false;
+
+    private void Generate()
+    {
+        string[] arrays = model.property.Split(',', StringSplitOptions.RemoveEmptyEntries);
+        model.output = "";
+        for (int i = 0; i <= arrays.Length - 1; i++)
+        {
+            model.output += model.template.Replace("$$Variable", arrays[i].Trim());
+        }
+    }
+}
