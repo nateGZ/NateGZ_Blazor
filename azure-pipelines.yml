@@ -32,10 +32,3 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)"'
-
