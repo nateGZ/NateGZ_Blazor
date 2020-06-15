@@ -39,8 +39,3 @@ steps:
     publishWebProjects: true
     arguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)"'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
